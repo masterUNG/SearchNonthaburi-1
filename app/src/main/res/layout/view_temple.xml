@@ -60,7 +60,9 @@
                 android:layout_height="match_parent"
                 android:id="@+id/textView4"
                 android:layout_weight="1"
-                android:gravity="right|center_vertical" />
+                android:gravity="right|center_vertical"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
 
             <TextView
                 android:text="กม."

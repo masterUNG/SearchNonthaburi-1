@@ -21,10 +21,14 @@ public class CustomAdapter extends BaseAdapter {
     //Explicit
     private Context mContext;
     private ArrayList<HashMap<String, Object>> listdata;
+    private double[] lengthDoubles;
 
-    public CustomAdapter(Context mContext, ArrayList<HashMap<String, Object>> listdata) {
+    public CustomAdapter(Context mContext,
+                         ArrayList<HashMap<String, Object>> listdata,
+                         double[] lengthDoubles) {
         this.mContext = mContext;
         this.listdata = listdata;
+        this.lengthDoubles = lengthDoubles;
     }
 
     @Override
@@ -58,6 +62,9 @@ public class CustomAdapter extends BaseAdapter {
         imageView.setImageBitmap(BitmapFactory.decodeByteArray(
                 (byte[]) item.get(DT_temple011.image_path), 0,((byte[]) item.get(DT_temple011.image_path)).length)
         );
+
+        TextView lengthTextView1 = (TextView) view.findViewById(R.id.textView4);
+        lengthTextView1.setText(String.format("%.2f", lengthDoubles[position]));
 
         return view;
     }

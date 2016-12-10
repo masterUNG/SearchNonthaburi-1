@@ -45,6 +45,7 @@ public class Manu01 extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(Manu01.this, Manu0011.class);
+                i.putExtra("Length", lengthDoubles);
                 startActivity(i);
             }
 
@@ -68,6 +69,7 @@ public class Manu01 extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(Manu01.this, Manu0012.class);
+                i.putExtra("Length", lengthDoubles);
                 startActivity(i);
             }
 

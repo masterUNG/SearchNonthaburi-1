@@ -46,7 +46,8 @@ public class Manu0011 extends AppCompatActivity {
 
         getType = data_temple.getTypeList();
 
-        customAdapter = new CustomAdapter(getApplicationContext(), getType);
+        customAdapter = new CustomAdapter(getApplicationContext(), getType,
+                getIntent().getDoubleArrayExtra("Length"));
 
         ListAdapter adapter = new SimpleAdapter(Manu0011.this, getType, R.layout.view_temple, new String[]{DT_temple011.temple_name}, new int[]{R.id.temple_name});
 
