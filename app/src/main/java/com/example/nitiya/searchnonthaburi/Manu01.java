@@ -3,6 +3,8 @@ package com.example.nitiya.searchnonthaburi;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +23,7 @@ public class Manu01 extends AppCompatActivity {
     private LocationManager locationManager;
     private Criteria criteria;
     private double latADouble, lngADouble;
+    private double[] lengthDoubles;
 
 
     @Override
@@ -73,7 +76,43 @@ public class Manu01 extends AppCompatActivity {
 
 
 
+
+
     }   // Main Method
+
+    private void calculateLengthAll() {
+
+        //Get lat2, lon2 from SQLite
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase("databasess.db",
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM Data_Temple", null);
+        cursor.moveToFirst();
+        int i = cursor.getCount();
+        Log.d("10decV2", "cursor Count ==> " + i);
+
+        lengthDoubles = new double[i];
+        double[] douLat = new double[i];
+        double[] douLng = new double[i];
+
+        for (int i1=0;i1<i;i1++) {
+
+            douLat[i1] = cursor.getDouble(4);
+            douLng[i1] = cursor.getDouble(5);
+
+            Log.d("10decV2", "(lat, lng) == " + "(" + douLat[i1] + ", " + douLng[i1] + ")");
+
+            CalculateLength calculateLength = new CalculateLength(Manu01.this,
+                    latADouble, lngADouble, douLat[i1], douLng[i1]);
+            lengthDoubles[i1] = calculateLength.myLength();
+            Log.d("10decV2", "length (" + i1 + ") ==> " + lengthDoubles[i1]);
+
+            cursor.moveToNext();
+
+        }   // for
+
+
+
+    }   // calculate
 
     @Override
     protected void onResume() {
@@ -101,11 +140,14 @@ public class Manu01 extends AppCompatActivity {
         Log.d("10decV1", "lng ==> " + lngADouble);
 
         //Test Length
-        double lat1 = 13.667632;
-        double lng2 = 100.621807;
+        double lat1 = 13.832051;
+        double lng2 = 100.507046;
         CalculateLength calculateLength = new CalculateLength(Manu01.this,
                 latADouble, lngADouble, lat1, lng2);
         Log.d("10decV1", "Length ==> " + calculateLength.myLength());
+
+        //Calculate Length All
+        calculateLengthAll();
 
 
 
