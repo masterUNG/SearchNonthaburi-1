@@ -71,6 +71,8 @@ public class Manu01 extends AppCompatActivity {
         });
 
 
+
+
     }   // Main Method
 
     @Override
@@ -96,6 +98,14 @@ public class Manu01 extends AppCompatActivity {
 
         Log.d("10decV1", "lat ==> " + latADouble);
         Log.d("10decV1", "lng ==> " + lngADouble);
+
+        //Test Length
+        double lat1 = 13.667632;
+        double lng2 = 100.621807;
+        CalculateLength calculateLength = new CalculateLength(Manu01.this,
+                latADouble, lngADouble, lat1, lng2);
+        Log.d("10decV1", "Length ==> " + calculateLength.myLength());
+
 
 
     }   // onResume
