@@ -24,12 +24,15 @@ public class Manu01 extends AppCompatActivity {
     private Criteria criteria;
     private double latADouble, lngADouble;
     private double[] lengthDoubles;
+    private MyManage myManage;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manu01);
+
+        myManage = new MyManage(Manu01.this);
 
         img01 = (ImageButton) findViewById(R.id.manu001);
 
