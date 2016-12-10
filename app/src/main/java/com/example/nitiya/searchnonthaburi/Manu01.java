@@ -94,6 +94,7 @@ public class Manu01 extends AppCompatActivity {
         if (gpsLocation != null) {
             latADouble = gpsLocation.getLatitude();
             lngADouble = gpsLocation.getLongitude();
+
         }
 
         Log.d("10decV1", "lat ==> " + latADouble);
