@@ -12,7 +12,7 @@ public class MyOpenHelper extends SQLiteOpenHelper{
 
     //Explicit
     private Context context;
-    private static final String database_name = "eve.db";
+    public static final String database_name = "eve.db";
     private static final int database_version = 1;
 
     private static final String create_eveTABLE = "create table eveTABLE (" +
