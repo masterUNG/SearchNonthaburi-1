@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Manu01 extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class Manu01 extends AppCompatActivity {
     private double latADouble, lngADouble;
     private double[] lengthDoubles;
     private MyManage myManage;
+    private ArrayList<HashMap<String, Object>> getType;
 
 
     @Override
@@ -35,6 +37,8 @@ public class Manu01 extends AppCompatActivity {
         setContentView(R.layout.manu01);
 
         myManage = new MyManage(Manu01.this);
+        Data_temple data_temple = new Data_temple(this);
+        getType = data_temple.getTypeList();
 
         img01 = (ImageButton) findViewById(R.id.manu001);
 
@@ -69,6 +73,8 @@ public class Manu01 extends AppCompatActivity {
         });
 
         img03 = (ImageButton) findViewById(R.id.btn03_shr9);
+
+        // Goto  Menu0012
         img03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
