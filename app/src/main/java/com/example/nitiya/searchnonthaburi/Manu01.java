@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class Manu01 extends AppCompatActivity {
 
-    //Explicit
+    //Explicit master
     ImageButton img01, img02, img03;
     private LocationManager locationManager;
     private Criteria criteria;
