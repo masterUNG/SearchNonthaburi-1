@@ -10,15 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.nitiya.searchnonthaburi.Manu0012">
 
-    <TextView
-        android:text="9วัดโดยอัติโนมัติ"
-        android:textSize="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="27dp"
-        android:id="@+id/textView2"
-        tools:ignore="HardcodedText,SpUsage" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/livShow9Temple" />
 </RelativeLayout>

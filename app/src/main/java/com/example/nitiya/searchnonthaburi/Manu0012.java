@@ -1,16 +1,20 @@
 package com.example.nitiya.searchnonthaburi;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class Manu0012 extends AppCompatActivity {
 
     //Explicit  นี่คือการประกาศตัวแปร
     private double[] lengthDoubles;
+    private String[] idStrings = new String[9];
 
 
     @Override
@@ -20,12 +24,41 @@ public class Manu0012 extends AppCompatActivity {
 
         //Setup
         lengthDoubles = getIntent().getDoubleArrayExtra("Length");
+        for (int i=0;i<lengthDoubles.length;i++) {
+            Log.d("24decV1", "length(" + i + ") = " + lengthDoubles[i]);
+        }
+
+        // ค้นหา 9 วัดที่ ใกล้ที่สุด
+        find9Temple();
+
+
+
+
+
 
         //SupportActionBar
         supportBar();
 
 
     }   // Main Method
+
+    private void find9Temple() {
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM eveTABLE ORDER BY Length ASC", null);
+        cursor.moveToFirst();
+        for (int i=0;i<idStrings.length;i++) {
+
+            idStrings[i] = cursor.getString(0);
+            Log.d("24decV2", "idStrings(" + i + ") = " + idStrings[i]);
+
+            cursor.moveToNext();
+        }   // for
+
+
+
+    }   // find9Temple
 
     private void supportBar() {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
