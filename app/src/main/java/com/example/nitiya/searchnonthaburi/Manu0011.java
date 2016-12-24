@@ -1,6 +1,9 @@
 package com.example.nitiya.searchnonthaburi;
 
-import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -8,11 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -43,35 +42,38 @@ public class Manu0011 extends AppCompatActivity {
 
         ListView lv = (ListView) findViewById(R.id.listtemple);
 
-        Data_temple data_temple = new Data_temple(this);
-        getType = data_temple.getTypeList();
-        customAdapter = new CustomAdapter(getApplicationContext(), getType,
-                getIntent().getDoubleArrayExtra("Length"));
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase("databasess.db",
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM Data_Temple", null);
+        cursor.moveToFirst();
+//        int i = cursor.getCount();
+        int i = 20;
 
-        ListAdapter adapter = new SimpleAdapter(Manu0011.this, getType, R.layout.view_temple, new String[]{DT_temple011.temple_name}, new int[]{R.id.temple_name});
+        String[] templeStrings = new String[i];
+        String[] detailStrings = new String[i];
+        Bitmap[] bitmaps = new Bitmap[i];
+        String[] latStrings = new String[i];
+        String[] lngStrings = new String[i];
+        String[] lengthStrings = new String[i];
 
-        lv.setAdapter(customAdapter);
+        for (int i1 = 0; i1 < i; i1++) {
 
-        //กดแล้วเเข้าไปรายชื่อวัด//
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                int type = Integer.parseInt(String.valueOf(getType.get(position).get(DT_temple011.temple_id)));
-//                Intent objIndent = new Intent(getApplicationContext(), DT_dise011.class);
-//                objIndent.putExtra("temple", type);
-//                startActivity(objIndent);
-//            }
-//        });
+            templeStrings[i1] = cursor.getString(1);
+            detailStrings[i1] = cursor.getString(2);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int type = Integer.parseInt(String.valueOf(getType.get(i).get(DT_temple011.temple_id)));
-                Intent objIndent = new Intent(getApplicationContext(), DT_dise011.class);
-                objIndent.putExtra("temple", type);
-                startActivity(objIndent);
-            }
-        });
+            byte[] byteArray = cursor.getBlob(cursor.getColumnIndex(DT_temple011.image_path));
+            bitmaps[i1] = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+
+            latStrings[i1] = cursor.getString(4);
+            lngStrings[i1] = cursor.getString(5);
+
+            cursor.moveToNext();
+        }   // for
+
+        NineAdapter nineAdapter = new NineAdapter(Manu0011.this, templeStrings,
+                lengthStrings, bitmaps);
+        lv.setAdapter(nineAdapter);
+
 
 
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -82,7 +84,8 @@ public class Manu0011 extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
+
+    }   // Main Method
 
     // ปุ่มย้อนกลับแทบบรา
     @Override
@@ -125,6 +128,6 @@ public class Manu0011 extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
-}
+}   // Main Class
 
 
