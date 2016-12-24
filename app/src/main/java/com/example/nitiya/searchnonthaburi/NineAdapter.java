@@ -1,6 +1,7 @@
 package com.example.nitiya.searchnonthaburi;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,13 @@ public class NineAdapter extends BaseAdapter{
     private String[] templeStrings, lengthStrings;
     private TextView templeTextView, lengthTextView;
     private ImageView imageView;
+    private Bitmap[] bitmaps;
 
-    public NineAdapter(Context context, String[] templeStrings, String[] lengthStrings) {
+    public NineAdapter(Context context, String[] templeStrings, String[] lengthStrings, Bitmap[] bitmaps) {
         this.context = context;
         this.templeStrings = templeStrings;
         this.lengthStrings = lengthStrings;
+        this.bitmaps = bitmaps;
     }
 
     @Override
@@ -55,6 +58,8 @@ public class NineAdapter extends BaseAdapter{
         //Show View
         templeTextView.setText(templeStrings[i]);
         lengthTextView.setText(lengthStrings[i]);
+        imageView.setImageBitmap(bitmaps[i]);
+
 
         return view1;
     }

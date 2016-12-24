@@ -2,6 +2,8 @@ package com.example.nitiya.searchnonthaburi;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ public class Manu0012 extends AppCompatActivity {
     private String[] idStrings = new String[9];
     private String[] templeStrings = new String[9];
     private String[] lengthStrings = new String[9];
+    private Bitmap[] bitmaps = new Bitmap[9];
     private ListView listView;
 
 
@@ -54,7 +57,8 @@ public class Manu0012 extends AppCompatActivity {
 
     private void createListView() {
 
-        NineAdapter nineAdapter = new NineAdapter(Manu0012.this, templeStrings, lengthStrings);
+        NineAdapter nineAdapter = new NineAdapter(Manu0012.this,
+                templeStrings, lengthStrings, bitmaps);
         listView.setAdapter(nineAdapter);
 
     }   // createListView
@@ -69,6 +73,9 @@ public class Manu0012 extends AppCompatActivity {
             cursor.moveToFirst();
             templeStrings[i] = cursor.getString(1);
             Log.d("24decV2", "templeString (" + i + ") = " + templeStrings[i]);
+
+            byte[] byteArray = cursor.getBlob(cursor.getColumnIndex(DT_temple011.image_path));
+            bitmaps[i] = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
 
             cursor.moveToNext();
         }   //for
