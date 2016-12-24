@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class Manu0012 extends AppCompatActivity {
 
@@ -17,6 +18,7 @@ public class Manu0012 extends AppCompatActivity {
     private String[] idStrings = new String[9];
     private String[] templeStrings = new String[9];
     private String[] lengthStrings = new String[9];
+    private ListView listView;
 
 
 
@@ -25,6 +27,8 @@ public class Manu0012 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manu0012);
+
+        listView = (ListView) findViewById(R.id.livShow9Temple);
 
         //Setup
         lengthDoubles = getIntent().getDoubleArrayExtra("Length");
@@ -38,7 +42,8 @@ public class Manu0012 extends AppCompatActivity {
         // ค้นหา Name and Image
         findNameImage();
 
-
+        //Create ListView
+        createListView();
 
 
         //SupportActionBar
@@ -46,6 +51,13 @@ public class Manu0012 extends AppCompatActivity {
 
 
     }   // Main Method
+
+    private void createListView() {
+
+        NineAdapter nineAdapter = new NineAdapter(Manu0012.this, templeStrings, lengthStrings);
+        listView.setAdapter(nineAdapter);
+
+    }   // createListView
 
     private void findNameImage() {
 
