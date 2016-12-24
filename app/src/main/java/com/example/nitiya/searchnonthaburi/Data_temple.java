@@ -3,12 +3,9 @@ package com.example.nitiya.searchnonthaburi;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * Created by nitiya on 21/11/2559.
@@ -16,6 +13,7 @@ import java.util.Objects;
 
 public class Data_temple {
 
+    //Explicit
     private Mydatabase dbHelper;
 
     public Data_temple(Context context) {
@@ -49,7 +47,8 @@ public class Data_temple {
         cursor.close();
         db.close();
         return typeList;
-    }
+
+    }   // ArrayList
 
     public DT_temple011 dataTemple(int templeid) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();

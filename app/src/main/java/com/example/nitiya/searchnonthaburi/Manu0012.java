@@ -15,6 +15,10 @@ public class Manu0012 extends AppCompatActivity {
     //Explicit  นี่คือการประกาศตัวแปร
     private double[] lengthDoubles;
     private String[] idStrings = new String[9];
+    private String[] templeStrings = new String[9];
+    private String[] lengthStrings = new String[9];
+
+
 
 
     @Override
@@ -31,7 +35,8 @@ public class Manu0012 extends AppCompatActivity {
         // ค้นหา 9 วัดที่ ใกล้ที่สุด
         find9Temple();
 
-
+        // ค้นหา Name and Image
+        findNameImage();
 
 
 
@@ -41,6 +46,23 @@ public class Manu0012 extends AppCompatActivity {
 
 
     }   // Main Method
+
+    private void findNameImage() {
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase("databasess.db", MODE_PRIVATE, null);
+
+        for (int i=0;i<idStrings.length;i++) {
+
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM Data_Temple WHERE Temple_id = " + "'" + idStrings[i] + "'", null);
+            cursor.moveToFirst();
+            templeStrings[i] = cursor.getString(1);
+            Log.d("24decV2", "templeString (" + i + ") = " + templeStrings[i]);
+
+            cursor.moveToNext();
+        }   //for
+
+
+    }   // findNameImage
 
     private void find9Temple() {
 
@@ -52,6 +74,9 @@ public class Manu0012 extends AppCompatActivity {
 
             idStrings[i] = cursor.getString(0);
             Log.d("24decV2", "idStrings(" + i + ") = " + idStrings[i]);
+
+            lengthStrings[i] = cursor.getString(1);
+            Log.d("24decV2", "lengthStrings(" + i + ") = " + lengthStrings[i]);
 
             cursor.moveToNext();
         }   // for

@@ -42,10 +42,9 @@ public class Manu0011 extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#99CC33")));
 
         ListView lv = (ListView) findViewById(R.id.listtemple);
+
         Data_temple data_temple = new Data_temple(this);
-
         getType = data_temple.getTypeList();
-
         customAdapter = new CustomAdapter(getApplicationContext(), getType,
                 getIntent().getDoubleArrayExtra("Length"));
 
