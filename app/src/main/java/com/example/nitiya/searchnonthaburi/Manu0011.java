@@ -28,6 +28,7 @@ public class Manu0011 extends AppCompatActivity {
     private GoogleApiClient client;
     private ArrayList<HashMap<String, Object>> getType;
     private CustomAdapter customAdapter;
+    private String[] lengthStrings;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class Manu0011 extends AppCompatActivity {
         Bitmap[] bitmaps = new Bitmap[i];
         String[] latStrings = new String[i];
         String[] lngStrings = new String[i];
-        String[] lengthStrings = new String[i];
+        lengthStrings = new String[i];
 
         for (int i1 = 0; i1 < i; i1++) {
 
@@ -67,8 +68,11 @@ public class Manu0011 extends AppCompatActivity {
             latStrings[i1] = cursor.getString(4);
             lngStrings[i1] = cursor.getString(5);
 
+
             cursor.moveToNext();
         }   // for
+
+        lengthStrings = findLenght(i);
 
         NineAdapter nineAdapter = new NineAdapter(Manu0011.this, templeStrings,
                 lengthStrings, bitmaps);
@@ -86,6 +90,23 @@ public class Manu0011 extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
     }   // Main Method
+
+    private String[] findLenght(int i) {
+
+        String[] resultStrings = new String[i];
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM eveTABLE", null);
+        cursor.moveToFirst();
+
+        for (int i1=0;i1<i;i1++) {
+
+            resultStrings[i1] = cursor.getString(1);
+
+        }   // for
+
+        return resultStrings;
+    }
 
     // ปุ่มย้อนกลับแทบบรา
     @Override
